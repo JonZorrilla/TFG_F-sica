@@ -1,0 +1,309 @@
+; Izpilab EHU
+; Contacat: inigo.arredondo@ehu.eus
+; date: 
+; Description: 
+
+
+pa_define(4460,615,1,c,y,e) 
+
+;# local width_0 = _G.width_0 or 40 ;width of electrode 0
+;# local width_1 = _G.width_1 or 0 ;width of electrode 1
+;# local width_2 = _G.width_2 or 0 ;width of electrode 2
+;# local width_3 = _G.width_3 or 0 ;width of electrode 3
+
+;# local width_0_s = _G.width_0_s or 0  ;width of small opening of electrode 0
+;# local radius_0_s= _G.height_0_s or 0 ; diam of small opening of electrode 0
+;# local angle_pierce = _G.angle_pierce or 0; Pierce angle or less
+
+;# local radius_0 = _G.diam_0 or 0 ;diameter of electrode 0
+;# local radius_1 = _G.diam_1 or 0 ;diameter of electrode 1
+;# local radius_2 = _G.diam_2 or 0 ;diameter of electrode 2
+;# local radius_3 = _G.diam_3 or 0 ;diameter of electrode 3
+
+;# local length_1 = _G.length_1 or 0 ;dist from e0 to e1
+;# local length_2 = _G.length_2 or 0 ;dist from e1 to e2
+;# local length_3 = _G.length_3 or 0 ;dist from e2 to e3
+
+;Definition of some constants:
+
+# local radius_electrodes = 410
+
+# local width_metal = 5
+# local length_metal = 50
+# local posx_metal = 240
+# local posy_metal = 456
+
+;Definition of variables:
+
+# local width_0 = 30
+# local width_1 = 30
+# local width_2 = 30
+# local width_3 = 30
+
+# local width_0_s = 5
+# local radius_0_s = 25
+# local angle_pierce = 67.5
+
+# local radius_0 = 50
+# local radius_1 = 45
+# local radius_2 = 45
+# local radius_3 = 45
+
+# local length_1 = 50
+# local length_2 = 40
+# local length_3 = 40
+
+;Definition of voltajes
+
+# local v0 = 30000
+# local v2 = 15000
+
+;Electrodo de extracccion
+e(v0)
+{
+locate(0)
+	{
+	fill
+	{
+		within
+		{
+			corner_box(0,0,width_0,radius_electrodes-width_0/2) 
+		}
+		notin
+		{
+			corner_box(0,0,width_0,radius_0_s)
+		}
+		notin
+		{		
+			locate(width_0_s,radius_0_s,0,1,0,angle_pierce,180)
+			{
+				corner_box(0,0,4*width_0,4*radius_0)
+			}
+		}
+	}
+	}
+}
+
+;Curva0_up
+	
+e(v0)
+{
+locate(0,radius_electrodes-width_0/2)
+{
+	fill
+	{
+		within
+		{
+			circle(width_0/2,0,width_0/2,width_0/2)
+		}
+		locate(0,0,0,1,0,0,180)
+		{
+			notin
+			{
+				corner_box(0,0,width_0,width_0/2)
+			}
+		}
+	}
+}
+}
+
+;Curva1_down
+	
+e(0)
+{
+locate(width_0 + length_1,radius_1)
+{
+	fill
+	{
+		within
+		{
+			circle(width_1/2,0,width_1/2,width_1/2)
+		}
+		notin
+		{
+			corner_box(0,0,width_1,width_1/2)
+		}
+	}
+}
+}
+
+;Curva1_up
+	
+e(0)
+{
+locate(width_0 + length_1,radius_electrodes- width_1/2)
+{
+	fill
+	{
+		within
+		{
+			circle(width_1/2,0,width_1/2,width_1/2)
+		}
+		locate(0,0,0,1,0,0,180)
+		{
+			notin
+			{
+				corner_box(0,0,width_1,width_1/2)
+			}
+		}
+	}
+}
+}
+
+
+;Curva2_down
+
+e(v2)
+{
+locate(width_0 + length_1 + width_1 + length_2,radius_2)
+{
+	fill
+	{
+		within
+		{
+			circle(width_2/2,0,width_2/2,width_2/2)
+		}
+		notin
+		{
+			corner_box(0,0,width_2,width_2/2)
+		}
+	}
+}
+}
+
+;Curva2_up
+	
+e(v2)
+{
+locate(width_0 + length_1 + width_1 + length_2,radius_electrodes- width_2/2)
+{
+	fill
+	{
+		within
+		{
+			circle(width_2/2,0,width_2/2,width_2/2)
+		}
+		locate(0,0,0,1,0,0,180)
+		{
+			notin
+			{
+				corner_box(0,0,width_2,width_2/2)
+			}
+		}
+	}
+}
+}
+
+;Curva3_down
+
+e(0)
+{
+locate(width_0 + length_1 + width_1 + length_2 + width_2 + length_3,radius_3)
+{
+	fill
+	{
+		within
+		{
+			circle(width_3/2,0,width_3/2,width_3/2)
+		}
+		notin
+		{
+			corner_box(0,0,width_3,width_3/2)
+		}
+	}
+}
+}
+
+;Curva3_up
+	
+e(0)
+{
+locate(width_0 + length_1 + width_1 + length_2 + width_2 + length_3,radius_electrodes- width_3/2)
+{
+	fill
+	{
+		within
+		{
+			circle(width_3/2,0,width_3/2,width_3/2)
+		}
+		locate(0,0,0,1,0,0,180)
+		{
+			notin
+			{
+				corner_box(0,0,width_3,width_3/2)
+			}
+		}
+	}
+}
+}
+
+;Recto1
+
+e(0)                            
+    {                           
+   locate(width_0 + length_1)    
+        {
+        fill{within{box(0,radius_1,width_1,radius_electrodes-width_1/2)}}
+        }
+    }
+
+;Recto2
+e(v2)                            
+    {                       
+    locate(width_0 + length_1 + width_1 + length_2)
+        {
+        fill{within{box(0,radius_2,width_2,radius_electrodes-width_2/2)}}
+        }
+    }
+
+;Recto3
+e(0)
+    {                     
+    locate(width_0 + length_1 + width_1 + length_2 + width_2 + length_3)
+        {
+        fill{within{box(0,radius_3,width_3,radius_electrodes- width_3/2)}}
+        }
+   }
+
+;colocamos la parte metalica pegada a la alumina
+e(0)
+    {
+    locate(posx_metal+width_metal/2,posy_metal)
+	{
+	fill{within{box(0,0,50,width_metal)}}
+	}
+   }
+
+e(0)
+    {
+    locate(posx_metal,posy_metal)
+	{
+	fill{within{circle(width_metal/2,width_metal/2,width_metal/2,width_metal/2)}
+	
+	locate(width_metal/2,0)
+	{
+	notin
+	{
+	    corner_box(0,0,width_metal/2,width_metal/2)
+	}
+	}
+   }}
+}
+
+e(0)
+    {
+    locate(posx_metal+length_metal+width_metal/2,posy_metal)
+	{
+	fill{within{circle(0,width_metal/2,width_metal/2,width_metal/2)}
+	
+	locate(0,0,0,1,180,0,0)
+	{
+	notin
+	{
+	    corner_box(0,0,width_metal/2,width_metal/2)
+	}
+	}
+    }}
+}
+
+
