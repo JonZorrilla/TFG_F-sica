@@ -1,0 +1,1 @@
+En esta carpeta están los cálculos tras las correcciones de la emitancia.
